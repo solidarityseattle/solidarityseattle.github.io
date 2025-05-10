@@ -1,0 +1,32 @@
+[
+    {
+        "name": "Later Today",
+        "startTime": "2025-05-10T20:02:00.000-07:00",
+        "description": "This event should happen later today.",
+        "link": "https://google.com/"
+    },
+    {
+        "name": "Still Reasonably Ongoing",
+        "startTime": "2025-05-10T13:10:00.000-07:00",
+        "description": "This event is likely still happening.",
+        "link": "https://google.com/"
+    },
+    {
+        "name": "Yesterday",
+        "startTime": "2025-05-09T19:32:00.000-07:00",
+        "description": "This event happened yesterday. It shouldn't show up on the website.",
+        "link": "https://google.com/"
+    },
+    {
+        "name": "Next seven days",
+        "startTime": "2025-05-15T20:58:00.000-07:00",
+        "description": "This event is happening within a week.",
+        "link": "https://google.com/"
+    },
+    {
+        "name": "Next Month",
+        "startTime": "2025-06-11T20:00:00.000-07:00",
+        "description": "This event is happening within the next month.",
+        "link": "https://google.com/"
+    }
+]
