@@ -1,0 +1,16 @@
+body > p {
+    text-align: center;
+}
+
+h1 {
+    text-align: center;
+}
+
+.events {
+    display: flex;
+    justify-content: space-around;
+}
+
+.event {
+    width: 30%;
+}
