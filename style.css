@@ -14,3 +14,7 @@ h1 {
 .event {
     width: 30%;
 }
+
+.date, .location, .link {
+    flex-basis: 100%;
+}
