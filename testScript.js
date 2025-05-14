@@ -17,6 +17,7 @@ async function getEvents(currentDateTime)
         const eventGracePeriod = 8 * 60 * 60000; // 8 hours
         const irrelevancyThreshold = new Date(currentDateTime.getTime() - eventGracePeriod);
 
+        // TODO: get end of day, not 24 hour block.
         const tomorrowGracePeriod = 24 * 60 * 60000; // 24 hours
         const todayThreshold = new Date(currentDateTime.getTime() + tomorrowGracePeriod);
 
