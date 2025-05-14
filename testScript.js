@@ -40,48 +40,58 @@ async function getEvents(currentDateTime)
     };
 }
 
+function appendEvent(parent, eventDetails)
+{
+    const eventDiv = document.createElement("div");
+    eventDiv.classList.add("event");
+
+    const name = document.createElement("h2");
+    name.textContent = eventDetails.name;
+    eventDiv.appendChild(name);
+
+    const date = document.createElement("div");
+    date.classList.add("date");
+    date.textContent = new Date(eventDetails.startTime);
+    eventDiv.appendChild(date);
+
+    const location = document.createElement("div");
+    location.classList.add("location");
+    location.textContent = eventDetails.location;
+    eventDiv.appendChild(location);
+
+    const desc = document.createElement("p");
+    desc.textContent = eventDetails.description;
+    eventDiv.appendChild(desc);
+
+    const link = document.createElement("div");
+    link.classList.add("link");
+    eventDiv.appendChild(link);
+    const linkHref = document.createElement("a");
+    linkHref.href = eventDetails.link;
+    linkHref.textContent = eventDetails.link;
+    link.appendChild(linkHref);
+
+    parent.appendChild(eventDiv);
+}
+
 async function buildPage(currentDateTime)
 {
     const events = await getEvents(currentDateTime);
-    console.log(events)
 
     const today = document.getElementById("today");
-    const parent = today.getElementsByClassName("events")[0];
+    const todayEvents = today.getElementsByClassName("events")[0];
 
     for (let i = 0; i < events.today.length; i++)
     {
-        const thisEvent = events.today[i]
+        appendEvent(todayEvents, events.today[i])
+    }
 
-        const eventDiv = document.createElement("div");
-        eventDiv.classList.add("event");
+    const upcoming = document.getElementById("upcoming");
+    const upcomingEvents = upcoming.getElementsByClassName("events")[0];
 
-        const name = document.createElement("h2");
-        name.textContent = thisEvent.name;
-        eventDiv.appendChild(name);
-
-        const date = document.createElement("div");
-        date.classList.add("date");
-        date.textContent = new Date(thisEvent.startTime);
-        eventDiv.appendChild(date);
-
-        const location = document.createElement("div");
-        location.classList.add("location");
-        location.textContent = thisEvent.location;
-        eventDiv.appendChild(location);
-
-        const desc = document.createElement("p");
-        desc.textContent = thisEvent.description;
-        eventDiv.appendChild(desc);
-
-        const link = document.createElement("div");
-        link.classList.add("link");
-        eventDiv.appendChild(link);
-        const linkHref = document.createElement("a");
-        linkHref.href = thisEvent.link;
-        linkHref.textContent = thisEvent.link;
-        link.appendChild(linkHref);
-
-        parent.appendChild(eventDiv);
+    for (let i = 0; i < events.upcoming.length; i++)
+    {
+        appendEvent(upcomingEvents, events.upcoming[i])
     }
 }
 
