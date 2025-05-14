@@ -1,25 +1,28 @@
-async function getEvents()
+const TEST_DATETIME = new Date("2025-05-10T12:00:00.000-07:00")
+
+async function getEvents(currentDateTime)
 {
-    let fetchResult = await fetch("events.json");
-    let parseResult = await fetchResult.json();
+    const fetchResult = await fetch("testEvents.json");
+    const parseResult = await fetchResult.json();
 
-    let todayEvents = [];
-    let upcomingEvents = [];
-    
-    let currentDateTime = new Date();
-    for (let i = 0; i < parseResult.length; i += 1)
+    const todayEvents = [];
+    const upcomingEvents = [];
+
+    for (let i = 0; i < parseResult.length; i++)
     {
-        let thisEvent = parseResult[i];
+        const thisEvent = parseResult[i];
         
-        let thisDateTime = new Date(thisEvent.startTime);
-        const eventGracePeriod = 8 * 60 * 60000; // 8 hours
-        let irrelevancyThreshold = new Date(currentDateTime.getTime() - eventGracePeriod);
-        const tomorrowGracePeriod = 24 * 60 * 60000; // 24 hours
-        let todayThreshold = new Date(currentDateTime.getTime() + tomorrowGracePeriod);
+        const thisDateTime = new Date(thisEvent.startTime);
 
-        if (thisDateTime < irrelevancyThreshold)
-        {
+        const eventGracePeriod = 8 * 60 * 60000; // 8 hours
+        const irrelevancyThreshold = new Date(currentDateTime.getTime() - eventGracePeriod);
+
+        const tomorrowGracePeriod = 24 * 60 * 60000; // 24 hours
+        const todayThreshold = new Date(currentDateTime.getTime() + tomorrowGracePeriod);
+
+        if (thisDateTime < irrelevancyThreshold) {
             // discard
+            continue;
         }
         else if (thisDateTime < todayThreshold)
         {
@@ -37,40 +40,49 @@ async function getEvents()
     };
 }
 
-async function buildPage()
+async function buildPage(currentDateTime)
 {
-    let events = await getEvents();
+    const events = await getEvents(currentDateTime);
+    console.log(events)
 
-    let eventTable = document.getElementById("eventTableBody");
+    const today = document.getElementById("today");
+    const parent = today.getElementsByClassName("events")[0];
 
     for (let i = 0; i < events.today.length; i++)
     {
-        let thisEvent = events.today[i];
+        const thisEvent = events.today[i]
 
-        let newRow = document.createElement("tr");
+        const eventDiv = document.createElement("div");
+        eventDiv.classList.add("event");
 
-        let newName = document.createElement("td");
-        let newNameText = document.createTextNode(thisEvent.name);
-        newName.appendChild(newNameText);
-        newRow.appendChild(newName);
+        const name = document.createElement("h2");
+        name.textContent = thisEvent.name;
+        eventDiv.appendChild(name);
 
-        let newStartTime = document.createElement("td");
-        let newStartTimeText = document.createTextNode(thisEvent.startTime);
-        newStartTime.appendChild(newStartTimeText);
-        newRow.appendChild(newStartTime);
+        const date = document.createElement("div");
+        date.classList.add("date");
+        date.textContent = new Date(thisEvent.startTime);
+        eventDiv.appendChild(date);
 
-        let newDescription = document.createElement("td");
-        let newDescriptionText = document.createTextNode(thisEvent.description);
-        newDescription.appendChild(newDescriptionText);
-        newRow.appendChild(newDescription);
+        const location = document.createElement("div");
+        location.classList.add("location");
+        location.textContent = thisEvent.location;
+        eventDiv.appendChild(location);
 
-        let newLink = document.createElement("td");
-        let newLinkText = document.createTextNode(thisEvent.link);
-        newLink.appendChild(newLinkText);
-        newRow.appendChild(newLink);
+        const desc = document.createElement("p");
+        desc.textContent = thisEvent.description;
+        eventDiv.appendChild(desc);
 
-        eventTable.appendChild(newRow);
+        const link = document.createElement("div");
+        link.classList.add("link");
+        eventDiv.appendChild(link);
+        const linkHref = document.createElement("a");
+        linkHref.href = thisEvent.link;
+        linkHref.textContent = thisEvent.link;
+        link.appendChild(linkHref);
+
+        parent.appendChild(eventDiv);
     }
 }
 
-buildPage();
+buildPage(TEST_DATETIME);
