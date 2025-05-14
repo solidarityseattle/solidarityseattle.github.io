@@ -74,25 +74,23 @@ function appendEvent(parent, eventDetails)
     parent.appendChild(eventDiv);
 }
 
+function appendEvents(sectionId, eventDetails)
+{
+    const section = document.getElementById(sectionId);
+    const sectionEvents = section.getElementsByClassName("events")[0];
+
+    for (let i = 0; i < eventDetails[sectionId].length; i++)
+    {
+        appendEvent(sectionEvents, eventDetails[sectionId][i]);
+    }
+}
+
 async function buildPage(currentDateTime)
 {
     const events = await getEvents(currentDateTime);
 
-    const today = document.getElementById("today");
-    const todayEvents = today.getElementsByClassName("events")[0];
-
-    for (let i = 0; i < events.today.length; i++)
-    {
-        appendEvent(todayEvents, events.today[i])
-    }
-
-    const upcoming = document.getElementById("upcoming");
-    const upcomingEvents = upcoming.getElementsByClassName("events")[0];
-
-    for (let i = 0; i < events.upcoming.length; i++)
-    {
-        appendEvent(upcomingEvents, events.upcoming[i])
-    }
+    appendEvents("today", events);
+    appendEvents("upcoming", events);
 }
 
 buildPage(TEST_DATETIME);
