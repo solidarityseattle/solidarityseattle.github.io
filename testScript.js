@@ -46,18 +46,22 @@ function appendEvent(parent, eventDetails)
     const eventDiv = document.createElement("div");
     eventDiv.classList.add("event");
 
-    const name = document.createElement("h2");
+    const img = document.createElement("img");
+    img.src = eventDetails.image;
+    eventDiv.appendChild(img);
+
+    const name = document.createElement("h3");
     name.textContent = eventDetails.name;
     eventDiv.appendChild(name);
 
     const date = document.createElement("div");
     date.classList.add("date");
-    date.textContent = new Date(eventDetails.startTime);
+    date.textContent = "Date: " + new Date(eventDetails.startTime).toDateString();
     eventDiv.appendChild(date);
 
     const location = document.createElement("div");
     location.classList.add("location");
-    location.textContent = eventDetails.location;
+    location.textContent = "Location: " + eventDetails.location;
     eventDiv.appendChild(location);
 
     const desc = document.createElement("p");
