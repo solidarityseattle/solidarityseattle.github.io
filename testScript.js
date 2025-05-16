@@ -1,15 +1,13 @@
 const TEST_DATETIME = new Date("2025-05-10T12:00:00.000-07:00")
 
-async function getEvents(currentDateTime)
-{
+async function getEvents(currentDateTime) {
     const fetchResult = await fetch("testEvents.json");
     const parseResult = await fetchResult.json();
 
     const todayEvents = [];
     const upcomingEvents = [];
 
-    for (let i = 0; i < parseResult.length; i++)
-    {
+    for (let i = 0; i < parseResult.length; i++) {
         const thisEvent = parseResult[i];
         
         const thisDateTime = new Date(thisEvent.startTime);
@@ -24,13 +22,9 @@ async function getEvents(currentDateTime)
         if (thisDateTime < irrelevancyThreshold) {
             // discard
             continue;
-        }
-        else if (thisDateTime < todayThreshold)
-        {
+        } else if (thisDateTime < todayThreshold) {
             todayEvents.push(thisEvent);
-        }
-        else
-        {
+        } else {
             upcomingEvents.push(thisEvent);
         }
     }
@@ -41,8 +35,7 @@ async function getEvents(currentDateTime)
     };
 }
 
-function appendEvent(parent, eventDetails)
-{
+function appendEvent(parent, eventDetails) {
     const eventDiv = document.createElement("div");
     eventDiv.classList.add("event");
 
@@ -79,19 +72,16 @@ function appendEvent(parent, eventDetails)
     parent.appendChild(eventDiv);
 }
 
-function appendEvents(sectionId, eventDetails)
-{
+function appendEvents(sectionId, eventDetails) {
     const section = document.getElementById(sectionId);
     const sectionEvents = section.getElementsByClassName("events")[0];
 
-    for (let i = 0; i < eventDetails[sectionId].length; i++)
-    {
+    for (let i = 0; i < eventDetails[sectionId].length; i++) {
         appendEvent(sectionEvents, eventDetails[sectionId][i]);
     }
 }
 
-async function buildPage(currentDateTime)
-{
+async function buildPage(currentDateTime) {
     const events = await getEvents(currentDateTime);
 
     appendEvents("today", events);
