@@ -1,22 +1,38 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>Seattle Direct Action</title>
-    <script defer type="module" src="./testScript.js"></script>
-    <link rel="stylesheet" href="style.css">
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Seattle Direct Action</title>
+      <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <h1>Seattle Direct Action</h1>
-    <p>Find out what protests, strikes, rallies are happening in Seattle/King County</p>
-    <section id="today">
-      <h2>Happening Today</h1>
-      <div class="events">
-      </div>
-    </section>
-    <section id="upcoming">
-      <h2>Upcoming Events</h2>
-      <div class="events">
-      </div>
-    </section>
+
+      <header>
+        <h1>Seattle Direct Action</h1>
+        <p>Find out what protests, strikes, rallies are happening in Seattle/King County</p>
+      </header>
+
+      <main>
+          <section id="today-events">
+              <h2>Events Today</h2>
+              <ul class="event-list" data-category="today"></ul>
+          </section>
+
+          <section id="this-week-events">
+              <h2>Events This Week</h2>
+              <ul class="event-list" data-category="week"></ul>
+          </section>
+
+          <section id="this-month-events">
+              <h2>Events This Month</h2>
+              <ul class="event-list" data-category="month"></ul>
+          </section>
+
+          <div id="loading-message">Loading events...</div>
+          <div id="error-message" class="hidden">Failed to load events. Please try again later.</div>
+      </main>
+
+      <script src="script.js"></script>
   </body>
 </html>
