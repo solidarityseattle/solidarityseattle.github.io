@@ -63,6 +63,12 @@ function renderEvents(events) {
     });
 }
 
+const dateFormat = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+};
+
 // Function to create the full list item (pretty verbose but imp to avoid XSS)
 const createEventListItem = (event, eventDate) => {
     const li = document.createElement('li');
@@ -78,12 +84,18 @@ const createEventListItem = (event, eventDate) => {
     const p = document.createElement('p');
     p.className = 'event-details';
 
+    const formattedDate = new Intl.DateTimeFormat('en-US', dateFormat).format(eventDate);
+
     // Append date, location, and description
-    p.appendChild(createStrongText('Date', `${eventDate.toLocaleDateString()} at ${event.time}`));
+    p.appendChild(createStrongText('Date', `${formattedDate}`));
+    p.appendChild(document.createElement('br'));
+    p.appendChild(createStrongText('Time', `${event.time}`));
     p.appendChild(document.createElement('br'));
     p.appendChild(createStrongText('Location', event.location));
     p.appendChild(document.createElement('br'));
+    p.appendChild(document.createElement('br'));
     p.appendChild(document.createTextNode(event.description));
+    p.appendChild(document.createElement('br'));
     p.appendChild(document.createElement('br'));
 
     // Create and append the link if a link is provided
