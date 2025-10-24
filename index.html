@@ -1,38 +1,107 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Seattle Direct Action</title>
-      <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Seattle Direct Action</title>
+
+    <!--Added to avoid flash where html loads before css-->
+    <style>
+      body {
+        opacity: 0;
+      }
+    </style>
   </head>
+
   <body>
+    <header>
+      <h1>Seattle Direct Action</h1>
+      <p>
+        Find out what protests, strikes, rallies are happening in Seattle/King
+        County
+      </p>
+    </header>
 
-      <header>
-        <h1>Seattle Direct Action</h1>
-        <p>Find out what protests, strikes, rallies are happening in Seattle/King County</p>
-      </header>
+    <main>
+      <section id="today-events">
+        <h2>Today</h2>
+        <ul class="event-list" data-category="today"></ul>
+      </section>
 
-      <main>
-          <section id="today-events">
-              <h2>Today</h2>
-              <ul class="event-list" data-category="today"></ul>
-          </section>
+      <section id="this-week-events">
+        <h2>This Week</h2>
+        <ul class="event-list" data-category="week"></ul>
+      </section>
 
-          <section id="this-week-events">
-              <h2>This Week</h2>
-              <ul class="event-list" data-category="week"></ul>
-          </section>
+      <section id="this-month-events">
+        <h2>This Month</h2>
+        <ul class="event-list" data-category="month"></ul>
+      </section>
 
-          <section id="this-month-events">
-              <h2>This Month</h2>
-              <ul class="event-list" data-category="month"></ul>
-          </section>
+      <div id="loading-message">Loading events...</div>
+      <div id="error-message" class="hidden">
+        Failed to load events. Please try again later.
+      </div>
 
-          <div id="loading-message">Loading events...</div>
-          <div id="error-message" class="hidden">Failed to load events. Please try again later.</div>
-      </main>
+      <div class="admin-buttons">
+        <button id="add-event-btn">Add Event</button>
+        <button id="admin-login-btn">Admin Login</button>
+      </div>
+    </main>
 
-      <script src="script.js"></script>
+    <div id="submit-popup" class="popup-overlay hidden">
+      <div class="popup-box">
+        <h3>Submit an Event</h3>
+        <form id="submit-event-form">
+          <label>Title: <input type="text" name="title" required /></label>
+          <label>Date:<input type="date" name="date" required /></label>
+          <label>Time:<input type="time" name="time" required /></label>
+          <label>Location:<input type="text" name="location" required /></label>
+          <label
+            >Description:<textarea
+              name="description"
+              rows="3"
+              required
+            ></textarea>
+          </label>
+          <div class="popup-actions">
+            <button type="button" class="close-popup">Cancel</button>
+            <button type="submit">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="admin-popup" class="popup-overlay hidden">
+      <div class="popup-box">
+        <h3>Admin Login</h3>
+        <form id="admin-login-form">
+          <label>
+            Password:
+            <input id="admin-input" type="password" name="password" required />
+          </label>
+          <p id="admin-login-error" class="hidden"></p>
+          <div class="popup-actions">
+            <button type="button" class="close-popup">Cancel</button>
+            <button type="submit">Login</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="confirm-popup" class="popup-overlay hidden">
+      <div class="popup-box">
+        <p id="confirm-message">Are you sure?</p>
+        <div class="popup-actions">
+          <button id="confirm-cancel">Cancel</button>
+          <button id="confirm-ok">Yes</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="success-popup" class="popup-message hidden"></div>
+    <div id="error-popup" class="popup-message hidden"></div>
+
+    <script type="module" src="/src/main.js"></script>
   </body>
 </html>
