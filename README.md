@@ -1,4 +1,4 @@
-# Seattle Direct Action
+# Seattle Protests
 
 A community event listing website for protests, strikes, and rallies in the Seattle/King County area. This application features a MongoDB backend with JWT authentication for admin functionality and an approval workflow for user-submitted events.
 
